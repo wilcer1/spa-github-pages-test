@@ -5,7 +5,7 @@
   "description": "Single Page Apps for GitHub Pages",
   "scripts": {
     "start": "webpack-dev-server --devtool eval-source-map --host 0.0.0.0 --disable-host-check --open",
-    "build": "webpack -p"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "browserslist-config-css-grid": "^1.0.0",
+    "css-loader": "^6.7.1",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -37,9 +38,10 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "style-loader": "^3.3.1",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.0.0"
   },
   "browserslist": [
     "last 2 versions or > 0.2% and not dead and extends browserslist-config-css-grid"

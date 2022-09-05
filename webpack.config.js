@@ -7,7 +7,11 @@ module.exports = {
   },
 
   module: {
-    rules: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }],
+    rules: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+   {test: /\.css$/,
+    use: ["style-loader", "css-loader"]}
+    
+  ],
   },
 
   // to mimic GitHub Pages serving 404.html for all paths
