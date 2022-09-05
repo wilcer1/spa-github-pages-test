@@ -1,0 +1,11 @@
+.CalendarContainer {
+  background: url(https://i.pinimg.com/originals/9c/67/83/9c67830642c2b8a363dcb5a1883f1725.jpg)
+    no-repeat center fixed;
+  background-size: cover;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}

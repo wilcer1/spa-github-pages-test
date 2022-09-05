@@ -1,0 +1,104 @@
+.menu h1 {
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+header {
+  background: black;
+  height: 40px;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.menu-wrap {
+  float: left;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+nav {
+  position: absolute;
+  background: rgb(255, 255, 255);
+  top: 30px;
+  left: 0;
+  width: 100%;
+}
+nav ul {
+  list-style-type: none;
+  max-height: 0px;
+  overflow: hidden;
+  transition: none;
+}
+nav ul li {
+  padding: 0 15px;
+}
+nav ul li a {
+  display: inline-block;
+  padding: 12px;
+  /* Add your custom styles below to change appearance of links */
+  color: #0a0a0a;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+nav ul li a:hover,
+nav ul li a:focus {
+  color: #eb6f4a;
+}
+
+.endpoints {
+  text-decoration: none;
+  margin: 10px;
+
+  display: inline-block;
+  color: #fff;
+  padding: 2px 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.socialmedia {
+  float: right;
+}
+.fa.fa-bars.menu-icon {
+  color: white;
+}
+#checkbox {
+  display: none;
+}
+#checkbox:checked ~ nav ul {
+  max-height: 500px;
+  padding: 15px 0;
+  transition: all 0.5s;
+}
+
+@media (min-width: 800px) {
+  header {
+    height: 70px;
+  }
+  .menu h1 {
+    padding-left: 10px;
+  }
+  nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  nav ul {
+    max-height: 70px;
+    padding: 15px 0;
+    text-align: left;
+  }
+  nav ul li {
+    display: inline-flex;
+    padding-left: 0;
+  }
+  .fa.fa-bars.menu-icon {
+    color: white;
+  }
+}
