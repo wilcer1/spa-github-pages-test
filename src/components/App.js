@@ -6,6 +6,7 @@ import ExampleTwoDeepComponent from './ExampleTwoDeepComponent';
 import SitemapLinkGenerator from './SitemapLinkGenerator';
 import PageNotFound from './PageNotFound';
 import NavBar from './Navbar';
+import Booking from './Booking';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           path="/sitemap-link-generator"
           component={SitemapLinkGenerator}
         />
+        <Route exact path="/book" component={Booking} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
