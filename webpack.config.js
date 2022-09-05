@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: `${__dirname}/src/index.js`,
   output: {
@@ -35,5 +37,8 @@ module.exports = {
     historyApiFallback: {
       rewrites: [{ from: /\//, to: '/404.html' }],
     },
+    static: {
+      directory: path.join(__dirname, '/'),
+    }
   },
 };

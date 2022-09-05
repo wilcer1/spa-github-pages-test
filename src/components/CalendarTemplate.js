@@ -13,6 +13,7 @@ import {
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
+import VerifyBooking from './verifyBooking';
 
 const CalendarTemplate = ({
   availability,
@@ -175,6 +176,7 @@ const CalendarTemplate = ({
             <div className="header"> Time booked:</div>
             <div className="content">
               {activeDay} <br></br> {timeSelected}
+              <VerifyBooking />
             </div>
           </div>
         </Popup>
