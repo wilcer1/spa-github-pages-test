@@ -26,7 +26,7 @@ export default function App() {
           path="/sitemap-link-generator"
           component={SitemapLinkGenerator}
         />
-        <Route exact path="/book" component={Booking} />
+        <Route exact path="/boka" component={Booking} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
