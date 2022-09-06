@@ -6,13 +6,6 @@ const responseGoogle = (response) => {
 };
 
 function VerifyBooking() {
-  fetch(
-    'https://data.mongodb-api.com/app/website-mamma-fvnxm/endpoint/getGoogleAPI',
-  )
-    .then((res) => res.json())
-    .then((response) => {
-      console.log(response);
-    });
   return (
     <div className="VerifyBooking">
       <h1>Testing</h1>
