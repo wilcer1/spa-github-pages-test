@@ -16,15 +16,11 @@ import '../style/Calendar.css';
 import VerifyBooking from './verifyBooking';
 
 const CalendarTemplate = ({
-  availability,
-  setAvailability,
   primaryColor = '#DF1B1B',
   secondaryColor = '#47b2a2',
   fontFamily = 'Roboto',
   fontSize = 12,
   primaryFontColor = '#222222',
-  startTime = '8:00',
-  endTime = '20:00',
 }) => {
   const theme = createMuiTheme({
     typography: {
@@ -160,7 +156,14 @@ const CalendarTemplate = ({
     );
   }
 
-  function Popupfunc({ classname, open, close, activeDay, timeSelected }) {
+  function Popupfunc({
+    classname,
+    open,
+    close,
+    activeDay,
+    timeSelected,
+    cookie,
+  }) {
     if (true) {
       return (
         <Popup
@@ -214,60 +217,10 @@ const CalendarTemplate = ({
     }
   }
 
-  const convertAvailabilityForDatabase = (availability) => {
-    const output = [];
-    for (let year in availability) {
-      for (let month in availability[year]) {
-        for (let day in availability[year][month]) {
-          let activeDay = availability[year][month][day];
-          addActiveDayToOutput(activeDay, output, month, day, year);
-        }
-      }
-    }
-    return output;
-  };
-
-  const combineTimeArrays = (a, b) => {
-    for (let i = 0; i < a.length; i++) {
-      a[i].available = a[i].available || b[i].available;
-    }
-    return a;
-  };
-  function addActiveDayToOutput(activeDay, output, month, day, year) {
-    let activeRangeStart = null;
-    for (let time of activeDay) {
-      if (time.available && !activeRangeStart) activeRangeStart = time.time;
-      else if (!time.available && activeRangeStart) {
-        output.push({
-          start: new Date(`${month} ${day} ${year} ${activeRangeStart}`),
-          end: new Date(`${month} ${day} ${year} ${time.time}`),
-        });
-        activeRangeStart = null;
-      }
-    }
-  }
-
-  function makeQuickAvailability(availability) {
-    const output = {};
-    for (let range of availability) {
-      if (new Date(range.start) > new Date()) {
-        let day = moment(range.start).format('MMMM D, YYYY');
-        let time = `${moment(range.start).format('H:mm')} - ${moment(
-          range.end,
-        ).format('H:mm')}`;
-        if (output[day]) {
-          output[day].push(time);
-        } else {
-          output[day] = [time];
-        }
-      }
-    }
-    return output;
-  }
   return function Calendar() {
     const classes = useStyles();
     const today = moment();
-
+    const [cookie, setCookie] = useState();
     const [activeDay, setActiveDay] = useState(formatDate(today._d));
     const [year, setYear] = useState(Number(today.format('YYYY')));
     const [monthNumber, setMonthNumber] = useState(Number(today.format('M')));
@@ -276,7 +229,6 @@ const CalendarTemplate = ({
     let dayOfWeek = Number(moment(firstDay).format('d'));
     const days = getDaysArray();
     const [times, setTimes] = useState([]);
-    const [saving, setSaving] = useState(false);
     const [timeSelected, setTimeSelected] = useState(null);
     const [openPop, setOpenPop] = useState(false);
     const closeModal = () => setOpenPop(false);

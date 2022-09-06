@@ -248,7 +248,6 @@ const AdminCalendarTemplate = ({
     let dayOfWeek = Number(moment(firstDay).format('d'));
     const days = getDaysArray();
     const [times, setTimes] = useState([]);
-    const [saving, setSaving] = useState(false);
     const [timeSelected, setTimeSelected] = useState(null);
     const [openPop, setOpenPop] = useState(false);
     const closeModal = () => setOpenPop(false);
@@ -286,8 +285,6 @@ const AdminCalendarTemplate = ({
       '20:00',
       '21:00',
     ];
-    const defaultOptionLeft = optionsdleft[0];
-    const defaultOptionRight = optionsdright[0];
     let week = 0;
     let dayOfMonth = 1;
     while (week < 6 && dayOfMonth <= lastDay) {

@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AdminCalendarTemplate from './AdminCalendarTemplate';
 
 function AdminCalendar() {
-  const [availability, setAvailability] = useState([]);
-  const Calendar = AdminCalendarTemplate({
-    availability,
-    setAvailability,
-  });
+  const Calendar = AdminCalendarTemplate({});
   return (
     <div>
       <Calendar />
