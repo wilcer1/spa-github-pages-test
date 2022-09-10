@@ -156,14 +156,8 @@ const CalendarTemplate = ({
     );
   }
 
-  function Popupfunc({
-    classname,
-    open,
-    close,
-    activeDay,
-    timeSelected,
-    cookie,
-  }) {
+  function Popupfunc({ classname, open, close, activeDay, timeSelected }) {
+    const token = localStorage.getItem('X-Token');
     if (true) {
       return (
         <Popup
@@ -243,6 +237,7 @@ const CalendarTemplate = ({
         dayOfWeek = 0;
       }
     }
+    console.log(document.cookie);
 
     useEffect(() => {
       fetch(

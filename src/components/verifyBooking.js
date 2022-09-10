@@ -17,7 +17,7 @@ function VerifyBooking() {
           className="loginButton"
           onSuccess={(credentialResponse) => {
             console.log(credentialResponse, credentialResponse);
-            localStorage.setItem('Token', 'hey');
+            localStorage.setItem('X-Token', credentialResponse.credential);
           }}
           onError={(error) => {
             console.log('Login Failed', error);
@@ -35,9 +35,7 @@ function VerifyBooking() {
           onClick={() => {
             console.log('click');
           }}
-          callback={() => {
-            responseFacebook;
-          }}
+          callback={responseFacebook}
         />
       </div>
     </div>
