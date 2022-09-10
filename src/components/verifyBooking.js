@@ -29,7 +29,7 @@ function VerifyBooking() {
         {' '}
         <FacebookLogin
           className="loginButton"
-          appId="628843635271916"
+          appId="764238731453886"
           autoLoad={false}
           fields="name,email,picture"
           onClick={() => {
