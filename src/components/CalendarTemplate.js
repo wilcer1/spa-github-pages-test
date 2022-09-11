@@ -13,8 +13,11 @@ import {
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
-import VerifyBooking from './verifyBooking';
 import jwt_decode from 'jwt-decode';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import FacebookLogin from 'react-facebook-login';
+import '../style/VerifyBooking.css';
+const sign = require('jwt-encode');
 
 const CalendarTemplate = ({
   primaryColor = '#DF1B1B',
@@ -157,32 +160,6 @@ const CalendarTemplate = ({
     );
   }
 
-  function Popupfunc({ classname, open, close, activeDay, timeSelected }) {
-    if (true) {
-      return (
-        <Popup
-          className={classname}
-          open={open}
-          closeOnDocumentClick
-          onClose={close}
-        >
-          <div className="popUp">
-            <button className="close" onClick={close}>
-              &times;
-            </button>
-            <div className="header"> Time booked:</div>
-            <div className="content">
-              {activeDay} <br></br> {timeSelected}
-              <VerifyBooking />
-            </div>
-          </div>
-        </Popup>
-      );
-    } else {
-      return <h1>Hey</h1>;
-    }
-  }
-
   function getDaysArray() {
     return [
       ['', '', '', '', '', '', ''],
@@ -196,14 +173,17 @@ const CalendarTemplate = ({
 
   function fillDayAvailable(date) {
     for (let i = 10; i < 20; i++) {
-      fetch('/api/setAvailable', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+      fetch(
+        'https://data.mongodb-api.com/app/website-mamma-fvnxm/endpoint/setAvailable',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({ datetime: date + `_${i}:00-${i + 1}:00` }),
         },
-        body: JSON.stringify({ datetime: date + `_${i}:00-${i + 1}:00` }),
-      })
+      )
         .then((res) => res.text())
         .then((response) => {
           console.log(response);
@@ -225,6 +205,7 @@ const CalendarTemplate = ({
     const [times, setTimes] = useState([]);
     const [timeSelected, setTimeSelected] = useState(null);
     const [openPop, setOpenPop] = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
     const closeModal = () => setOpenPop(false);
     let week = 0;
     let dayOfMonth = 1;
@@ -236,9 +217,6 @@ const CalendarTemplate = ({
         week++;
         dayOfWeek = 0;
       }
-    }
-    if (sessionStorage.getItem('F-Token')) {
-      console.log(jwt_decode(sessionStorage.getItem('F-Token')));
     }
 
     useEffect(() => {
@@ -284,19 +262,33 @@ const CalendarTemplate = ({
       setMonthNumber(newMonth);
     };
 
-    function saveBooking(datetime) {
-      fetch('/api/book', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+    function saveBooking() {
+      const body = {
+        datetime: `${activeDay}_${timeSelected}`,
+        phone: '0722150345', // mock now, implement customer input here
+      };
+      if (sessionStorage.getItem('GToken')) {
+        body.GToken = sessionStorage.getItem('GToken');
+      } else if (sessionStorage.getItem('FToken')) {
+        body.FToken = sessionStorage.getItem('FToken');
+      }
+      fetch(
+        'https://data.mongodb-api.com/app/website-mamma-fvnxm/endpoint/setBooking',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify({ datetime: datetime }),
-      })
-        .then((res) => res.text())
+      )
+        .then((res) => res.json())
         .then((response) => {
           console.log(response);
         });
+
+      closeModal();
     }
 
     const monthsSV = (month) => {
@@ -387,6 +379,101 @@ const CalendarTemplate = ({
       November: '11',
       December: '12',
     };
+
+    function VerifyBooking() {
+      const responseFacebook = (response) => {
+        const jwt = sign(response, '');
+        sessionStorage.setItem('FToken', jwt);
+        setAuthenticated(true);
+      };
+
+      const responseGoogle = (response) => {
+        console.log(response.credential);
+        sessionStorage.setItem('GToken', response.credential);
+        setAuthenticated(true);
+      };
+
+      return (
+        <div className="VerifyBooking">
+          <GoogleOAuthProvider clientId="916587672516-pib163h8ridhcoknethuiq0l3d3ahbc6.apps.googleusercontent.com">
+            <GoogleLogin
+              className="loginButton"
+              onSuccess={responseGoogle}
+              onError={(error) => {
+                console.log('Login Failed', error);
+              }}
+            />
+          </GoogleOAuthProvider>
+          <div className="fbLogin">
+            {' '}
+            <FacebookLogin
+              className="loginButton"
+              appId="789331552103616"
+              autoLoad={false}
+              fields="name,email,picture"
+              onClick={() => {
+                console.log('click');
+              }}
+              callback={responseFacebook}
+            />
+          </div>
+        </div>
+      );
+    }
+    function Popupfunc({ classname, open, close, activeDay, timeSelected }) {
+      if (
+        sessionStorage.getItem('GToken') ||
+        sessionStorage.getItem('FToken')
+      ) {
+        return (
+          <Popup
+            className={classname}
+            open={open}
+            closeOnDocumentClick
+            onClose={close}
+          >
+            <div className="popUp">
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+              <div className="header"> Time Selected:</div>
+              <div className="content">
+                {activeDay} <br></br> {timeSelected}
+              </div>
+              <button onClick={saveBooking}>Slutför Bokning</button>
+            </div>
+          </Popup>
+        );
+      } else {
+        return (
+          <Popup
+            className={classname}
+            open={open}
+            closeOnDocumentClick
+            onClose={close}
+          >
+            <div className="popUp">
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+              <div className="header"> Tid vald:</div>
+              <div className="content">
+                {activeDay} <br></br> {timeSelected}
+                <VerifyBooking />
+              </div>
+              <Button
+                color="primary"
+                disabled={!authenticated}
+                onClick={saveBooking}
+              >
+                Slutför Bokning
+              </Button>
+            </div>
+          </Popup>
+        );
+      }
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Grid
@@ -579,6 +666,7 @@ const CalendarTemplate = ({
                     // saveBooking(`${activeDay}_${timeSelected}`);
                   }}
                   className={classes.button}
+                  disabled={activeDay === null || timeSelected === null}
                 >
                   Boka
                 </Button>
