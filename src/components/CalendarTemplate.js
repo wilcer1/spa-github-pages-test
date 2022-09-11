@@ -288,7 +288,6 @@ const CalendarTemplate = ({
         });
 
       closeModal();
-      location.reload();
     }
 
     const monthsSV = (month) => {
