@@ -6,7 +6,7 @@ const sign = require('jwt-encode');
 
 function VerifyBooking() {
   const responseFacebook = (response) => {
-    const jwt = sign(response);
+    const jwt = sign(response, '');
     if (response) {
       sessionStorage.setItem('F-Token', jwt);
     }
