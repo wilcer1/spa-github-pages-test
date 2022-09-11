@@ -5,6 +5,7 @@ import '../style/VerifyBooking.css';
 
 function VerifyBooking() {
   const responseFacebook = (response) => {
+    console.log(response);
     if (response) {
       localStorage.setItem('F-Token', response);
     }
