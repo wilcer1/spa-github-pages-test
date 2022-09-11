@@ -5,7 +5,14 @@ import '../style/VerifyBooking.css';
 
 function VerifyBooking() {
   const responseFacebook = (response) => {
-    console.log(response);
+    if (response) {
+      localStorage.setItem('F-Token', response);
+    }
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response.credential);
+    localStorage.setItem('G-Token', response.credential);
   };
 
   return (
@@ -15,10 +22,7 @@ function VerifyBooking() {
         <h1>Testing</h1>
         <GoogleLogin
           className="loginButton"
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse, credentialResponse);
-            localStorage.setItem('X-Token', credentialResponse.credential);
-          }}
+          onSuccess={responseGoogle}
           onError={(error) => {
             console.log('Login Failed', error);
           }}

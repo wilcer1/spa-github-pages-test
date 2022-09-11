@@ -28,8 +28,9 @@ module.exports = {
         resolve: {
           fullySpecified: false,
           fallback: {
-            "crypto": require.resolve("crypto-browserify"),
-            "stream": require.resolve("stream-browserify")
+            crypto: require.resolve("crypto-browserify"),
+            stream: require.resolve("stream-browserify"),
+            buffer: require.resolve("buffer/")
 
           }
         },
@@ -37,6 +38,7 @@ module.exports = {
 
     ],
   },
+  
 
   // to mimic GitHub Pages serving 404.html for all paths
   // and test spa-github-pages redirect in dev
@@ -48,4 +50,5 @@ module.exports = {
       directory: path.join(__dirname, '/'),
     }
   },
+
 };
