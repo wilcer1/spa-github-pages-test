@@ -14,6 +14,7 @@ import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
 import VerifyBooking from './verifyBooking';
+import jwt_decode from 'jwt-decode';
 
 const CalendarTemplate = ({
   primaryColor = '#DF1B1B',
@@ -235,6 +236,9 @@ const CalendarTemplate = ({
         week++;
         dayOfWeek = 0;
       }
+    }
+    if (localStorage.getItem('F-Token')) {
+      console.log(jwt_decode(localStorage.getItem('F-Token')));
     }
 
     useEffect(() => {
