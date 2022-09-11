@@ -14,7 +14,7 @@ import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import '../style/VerifyBooking.css';
 const sign = require('jwt-encode');
 
@@ -397,23 +397,29 @@ const CalendarTemplate = ({
           <GoogleOAuthProvider clientId="916587672516-pib163h8ridhcoknethuiq0l3d3ahbc6.apps.googleusercontent.com">
             <GoogleLogin
               className="loginButton"
+              render={(renderProps) => (
+                <button onClick={renderProps.onClick}>
+                  This is my custom Google button
+                </button>
+              )}
+              buttonText="Login"
               onSuccess={responseGoogle}
-              onError={(error) => {
-                console.log('Login Failed', error);
-              }}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
             />
           </GoogleOAuthProvider>
           <div className="fbLogin">
-            {' '}
             <FacebookLogin
               className="loginButton"
               appId="789331552103616"
               autoLoad={false}
-              fields="name,email,picture"
               onClick={() => {
                 console.log('click');
               }}
               callback={responseFacebook}
+              render={(renderProps) => (
+                <button onClick={renderProps.onClick}>Facebook</button>
+              )}
             />
           </div>
         </div>
@@ -583,6 +589,13 @@ const CalendarTemplate = ({
                     >
                       Hoppa till nuvarande månad
                     </Button>
+                    <Popupfunc
+                      classname="popUp"
+                      open={openPop}
+                      close={closeModal}
+                      activeDay={activeDay}
+                      timeSelected={timeSelected}
+                    />
                   </Grid>
                 </Card>
               </Grid>
@@ -669,14 +682,6 @@ const CalendarTemplate = ({
                 >
                   Boka
                 </Button>
-
-                <Popupfunc
-                  classname="popUp"
-                  open={openPop}
-                  close={closeModal}
-                  activeDay={activeDay}
-                  timeSelected={timeSelected}
-                />
               </Grid>
             </Grid>
           </Grid>
