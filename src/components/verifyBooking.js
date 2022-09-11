@@ -7,13 +7,13 @@ function VerifyBooking() {
   const responseFacebook = (response) => {
     console.log(response);
     if (response) {
-      localStorage.setItem('F-Token', response);
+      sessionStorage.setItem('F-Token', response);
     }
   };
 
   const responseGoogle = (response) => {
     console.log(response.credential);
-    localStorage.setItem('G-Token', response.credential);
+    sessionStorage.setItem('G-Token', response.credential);
   };
 
   return (
