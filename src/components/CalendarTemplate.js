@@ -13,7 +13,6 @@ import {
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
-import jwt_decode from 'jwt-decode';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import FacebookLogin from 'react-facebook-login';
 import '../style/VerifyBooking.css';
@@ -289,6 +288,7 @@ const CalendarTemplate = ({
         });
 
       closeModal();
+      location.reload();
     }
 
     const monthsSV = (month) => {
@@ -436,7 +436,7 @@ const CalendarTemplate = ({
               <button className="close" onClick={close}>
                 &times;
               </button>
-              <div className="header"> Time Selected:</div>
+              <div className="header"> Tid vald: </div>
               <div className="content">
                 {activeDay} <br></br> {timeSelected}
               </div>
