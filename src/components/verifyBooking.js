@@ -2,12 +2,13 @@ import React from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import FacebookLogin from 'react-facebook-login';
 import '../style/VerifyBooking.css';
+const sign = require('jwt-encode');
 
 function VerifyBooking() {
   const responseFacebook = (response) => {
-    console.log(response);
+    const jwt = sign(response);
     if (response) {
-      sessionStorage.setItem('F-Token', response);
+      sessionStorage.setItem('F-Token', jwt);
     }
   };
 
