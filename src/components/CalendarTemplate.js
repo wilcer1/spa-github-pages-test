@@ -237,8 +237,8 @@ const CalendarTemplate = ({
         dayOfWeek = 0;
       }
     }
-    if (localStorage.getItem('F-Token')) {
-      console.log(jwt_decode(localStorage.getItem('F-Token')));
+    if (sessionStorage.getItem('F-Token')) {
+      console.log(jwt_decode(sessionStorage.getItem('F-Token')));
     }
 
     useEffect(() => {
