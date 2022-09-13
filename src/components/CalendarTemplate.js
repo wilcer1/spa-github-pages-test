@@ -412,7 +412,10 @@ const CalendarTemplate = ({
           <div className="fbLogin">
             <FacebookLogin
               appId="789331552103616"
-              cssClass="fbButton"
+              size='small'
+              textButton="Logga in med facebook"
+              language='sv_SE'
+              icon="fa-facebook"
               autoLoad={false}
               fields="name,email,picture"
               onClick={() => {
@@ -463,7 +466,9 @@ const CalendarTemplate = ({
               <div className="header"> Tid vald:</div>
               <div className="content">
                 {activeDay} <br></br> {timeSelected}
-                <VerifyBooking />
+              </div>
+              <div className='buttons'>
+              <VerifyBooking />
               </div>
               <Button
                 color="primary"

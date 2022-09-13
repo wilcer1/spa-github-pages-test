@@ -1,6 +1,7 @@
 .popUp {
   font-size: 12px;
   background-color: rgb(3, 3, 107);
+  text-align: center;
   border: solid white 1px;
 }
 .popUp > .header {
@@ -12,7 +13,9 @@
   color: white;
 }
 .popUp > .content {
-  width: 100%;
+  font-size: medium;
+  width: 300px;
+  text-align: center;
   padding: 10px 5px;
   color: #ffffff;
 }
@@ -43,5 +46,9 @@
   padding: 200px;
 }
 .fbButton {
-  width: 50%;
+  width: 200px;
+  padding: 40px;
+}
+.buttons{
+  text-align: center;
 }
