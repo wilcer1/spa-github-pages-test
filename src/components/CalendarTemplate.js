@@ -16,6 +16,8 @@ import '../style/Calendar.css';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import FacebookLogin from 'react-facebook-login';
 import '../style/VerifyBooking.css';
+import underscore from 'underscore';
+
 const sign = require('jwt-encode');
 
 const CalendarTemplate = ({
@@ -193,7 +195,6 @@ const CalendarTemplate = ({
   return function Calendar() {
     const classes = useStyles();
     const today = moment();
-    const [cookie, setCookie] = useState();
     const [activeDay, setActiveDay] = useState(formatDate(today._d));
     const [year, setYear] = useState(Number(today.format('YYYY')));
     const [monthNumber, setMonthNumber] = useState(Number(today.format('M')));
@@ -224,8 +225,8 @@ const CalendarTemplate = ({
       )
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
           response = formatDateTime(response);
+          console.log(response);
           response.map((element) => {
             element.available = false;
           });
@@ -243,7 +244,12 @@ const CalendarTemplate = ({
           time: temp[1],
         });
       });
-      return datetimeformatted;
+      const datetimeformattedsorted = underscore.sortBy(
+        datetimeformatted,
+        'time',
+      );
+
+      return datetimeformattedsorted;
     }
 
     const createArrowHandler = (delta) => () => {
@@ -405,7 +411,9 @@ const CalendarTemplate = ({
               cssClass="fbButton"
               buttonText="Login"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={(err) => {
+                console.log(err);
+              }}
               cookiePolicy={'single_host_origin'}
             />
           </GoogleOAuthProvider>
