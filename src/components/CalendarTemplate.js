@@ -13,7 +13,8 @@ import {
 import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLogin from './GoogleLogin/google-login';
 import FacebookLogin from 'react-facebook-login';
 import '../style/VerifyBooking.css';
 import underscore from 'underscore';

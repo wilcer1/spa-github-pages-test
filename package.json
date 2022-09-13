@@ -23,7 +23,7 @@
     "jwt-encode": "^1.0.1",
     "moment": "^2.29.4",
     "path": "^0.12.7",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
