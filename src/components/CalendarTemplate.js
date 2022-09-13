@@ -403,14 +403,7 @@ const CalendarTemplate = ({
         <div className="VerifyBooking">
           <GoogleOAuthProvider clientId="916587672516-pib163h8ridhcoknethuiq0l3d3ahbc6.apps.googleusercontent.com">
             <GoogleLogin
-              className="loginButton"
-              render={(renderProps) => (
-                <button onClick={renderProps.onClick}>
-                  This is my custom Google button
-                </button>
-              )}
-              cssClass="fbButton"
-              buttonText="Login"
+              buttonText="Logga in med Google"
               onSuccess={responseGoogle}
               onFailure={(err) => {
                 console.log(err);
@@ -421,9 +414,9 @@ const CalendarTemplate = ({
           <div className="fbLogin">
             <FacebookLogin
               appId="789331552103616"
-              size='small'
+              size="small"
               textButton="Logga in med facebook"
-              language='sv_SE'
+              language="sv_SE"
               icon="fa-facebook"
               autoLoad={false}
               fields="name,email,picture"
@@ -476,8 +469,8 @@ const CalendarTemplate = ({
               <div className="content">
                 {activeDay} <br></br> {timeSelected}
               </div>
-              <div className='buttons'>
-              <VerifyBooking />
+              <div className="buttons">
+                <VerifyBooking />
               </div>
               <Button
                 color="primary"
