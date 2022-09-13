@@ -14,7 +14,7 @@ import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import Popup from 'reactjs-popup';
 import '../style/Calendar.css';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookLogin from 'react-facebook-login';
 import '../style/VerifyBooking.css';
 const sign = require('jwt-encode');
 
@@ -402,6 +402,7 @@ const CalendarTemplate = ({
                   This is my custom Google button
                 </button>
               )}
+              cssClass="fbButton"
               buttonText="Login"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
@@ -410,16 +411,14 @@ const CalendarTemplate = ({
           </GoogleOAuthProvider>
           <div className="fbLogin">
             <FacebookLogin
-              className="loginButton"
               appId="789331552103616"
+              cssClass="fbButton"
               autoLoad={false}
+              fields="name,email,picture"
               onClick={() => {
                 console.log('click');
               }}
               callback={responseFacebook}
-              render={(renderProps) => (
-                <button onClick={renderProps.onClick}>Facebook</button>
-              )}
             />
           </div>
         </div>
