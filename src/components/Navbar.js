@@ -15,7 +15,7 @@ function Navbar() {
             <ul>
               <li>
                 <a href="/">
-                  <h1>Företag namn här</h1>
+                  <h1>Holistisk Läkning</h1>
                 </a>
               </li>
               <li className="endpoints">

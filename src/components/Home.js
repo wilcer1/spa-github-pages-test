@@ -8,18 +8,6 @@ function Home() {
   const boxRef = useRef();
 
   useEffect(() => {
-    // gsap.fromTo(
-    //   boxRef.current,
-    //   { y: 100, autoAlpha: 0 },
-    //   {
-    //     duration: 2.5,
-    //     y: 0,
-    //     autoAlpha: 1,
-    //     ease: "back",
-    //     overwrite: "auto"
-    //   }
-    // );
-
     gsap.registerPlugin(ScrollTrigger);
     gsap.utils.toArray('.revealUp').forEach(function (elem) {
       ScrollTrigger.create({
